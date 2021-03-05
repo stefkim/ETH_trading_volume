@@ -15,10 +15,10 @@
 					<br>
 					<br>
 					<h1 class="mb-2">
-						Volume Transaksi Harian Ethereum Bulan Januari 2021
+						Volume Transaksi Harian Ethereum
 					</h1>
 					<h3>
-						Reported Period: insert the data period here
+						Reported Period: Januari 2021
 					</h3>
 					<br>
 				</div>
@@ -45,7 +45,7 @@
 				<div class="tab">
 					<button class="tablinks" onclick="openTab(event, 'profile') " id="defaultOpen">by Profile
 					</button>
-					<button class="tablinks" onclick="openTab(event, 'Own')">(Create-Your-Own)
+					<button class="tablinks" onclick="openTab(event, 'Own')">Historical Data
 					</button>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 				<!-- Tab content -->
 				<div id="profile" class="tabcontent">
 					<br>
-					<h3 style="color: #333333;text-align:center">plot title here</h3>
+					<h3 style="color: #333333;text-align:center">Volume Transaksi Harian Ethereum - Januari 2021</h3>
 					<div class="img-container"">
 						{% if funded_plot != None %}
 					  <img src="data:image/png;base64,{{ plot_result }}" >
@@ -64,7 +64,11 @@
 				</div>
 				<div id="Own" class="tabcontent">
 				  <!-- Define your own analysis for extra challange -->
-
+						
+						{% for data in historical_data %}
+							
+							{{ data|safe }}
+						{% endfor %}
 				</div>
 			</div>
 		</div>

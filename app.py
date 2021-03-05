@@ -54,31 +54,35 @@ data['volume'] = data['volume'].astype('int64')
 #end of data wranggling 
 
 @app.route("/")
-def index(): 
-	
-	card_data = f'USD {data["volume"].mean()}'
+def index():
+    card_data = f'USD {data["volume"].mean()}'
 
 	# generate plot
-	fig, ax = plt.subplots(figsize=(20,6))
-	ax.plot(data["date"],data["volume"])
-	ax.set(xlabel="Date", ylabel="Volume (per 10M USD)")
-	ax.xaxis.set_major_locator(mdates.DayLocator(interval=1))
-	format = DateFormatter("%m/%d")
-	ax.xaxis.set_major_formatter(format)
+    fig, ax = plt.subplots(figsize=(20,6))
+    ax.plot(data["date"],data["volume"])
+    ax.set(xlabel="Date", ylabel="Volume (per 10M USD)")
+    ax.xaxis.set_major_locator(mdates.DayLocator(interval=1))
+    format = DateFormatter("%m/%d")
+    ax.xaxis.set_major_formatter(format)
+    
+    
 	
 	# Rendering plot
 	# Do not change this
-	figfile = BytesIO()
-	plt.savefig(figfile, format='png', transparent=True)
-	figfile.seek(0)
-	figdata_png = base64.b64encode(figfile.getvalue())
-	plot_result = str(figdata_png)[2:-1]
+    figfile = BytesIO()
+    plt.savefig(figfile, format='png', transparent=True)
+    figfile.seek(0)
+    figdata_png = base64.b64encode(figfile.getvalue())
+    plot_result = str(figdata_png)[2:-1]
+    
+    
 
 
 	# render to html
-	return render_template('index.html',
-		card_data = card_data, 
-		plot_result=plot_result
+    return render_template('index.html',
+        card_data = card_data, 
+		plot_result=plot_result,
+        historical_data=[data.to_html(classes='data')]
 		)
 
 
